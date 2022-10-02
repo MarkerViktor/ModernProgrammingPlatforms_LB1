@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ЛБ №1</title>
+</head>
+<body>
+    <input type="button" value="Красный" onclick="clickHandler(0)"><br>
+    <input type="button" value="Синий" onclick="clickHandler(1)"><br>
+    <input type="button" value="Зелёный" onclick="clickHandler(2)"><br>
+    <input type="button" value="Жёлтый" onclick="clickHandler(3)">
+</body>
+<style>
+    input {
+        width: 100px;
+        margin: 10px;
+    }
+</style>
+<script>
+    const clickHandler = async (buttonId) => {
+        let response = await fetch('/button_handler', {
+            method: 'POST',
+            body: JSON.stringify({
+                action_type: "button_click",
+                button_id: buttonId
+            })
+        });
+        let data = await response.json();
+        document.body.style.background = data['background_color'];
+    }
+</script>
+</html>
